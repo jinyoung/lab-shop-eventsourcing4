@@ -1,10 +1,12 @@
 package labshopeventsourcing.api;
 
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -66,4 +68,18 @@ public class OrderController {
       // send command
       return commandGateway.send(updateStatusCommand);
   }
+
+
+  @Autowired
+  EventStore eventStore;
+
+  @GetMapping(value="/orders/{id}/events")
+  public String getEvents(@PathVariable("id") String id){
+      eventStore.readEvents(id).asStream().forEach(System.out::println);
+
+      return "ok";
+            
+  }
+
+  
 }
