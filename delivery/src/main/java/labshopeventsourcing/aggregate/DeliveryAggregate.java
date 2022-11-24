@@ -45,7 +45,7 @@ public class DeliveryAggregate {
 
         DeliveryStartedEvent event = new DeliveryStartedEvent();
         BeanUtils.copyProperties(command, event);     
-        apply(event);
+        apply(event);  //publish
 
     }
 

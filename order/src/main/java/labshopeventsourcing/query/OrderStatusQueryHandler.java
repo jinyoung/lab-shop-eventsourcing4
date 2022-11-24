@@ -5,6 +5,7 @@ import labshopeventsourcing.event.*;
 
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.eventhandling.ReplayStatus;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.stereotype.Service;
 
@@ -26,14 +27,16 @@ public class OrderStatusQueryHandler {
     }
 
     @EventHandler
-    public void on(OrderPlacedEvent orderPlaced) {
+    public void on(OrderPlacedEvent orderPlaced, ReplayStatus replayStatus) {
 
-    OrderStatus orderStatus = new OrderStatus();
+        System.out.println(replayStatus.isReplay());
+
+        OrderStatus orderStatus = new OrderStatus();
 
         orderStatus.setId(orderPlaced.getId());
         orderStatus.setStatus(orderPlaced.getStatus());
-        orderStatus.setAmount(Long.valueOf(orderPlaced.getAmount()));
-        orderStatus.setQty(orderPlaced.getQty());
+        //orderStatus.setAmount(Long.valueOf(orderPlaced.getAmount()));
+        //orderStatus.setQty(orderPlaced.getQty());
 
         data.put(orderStatus.getId(), orderStatus);
     }

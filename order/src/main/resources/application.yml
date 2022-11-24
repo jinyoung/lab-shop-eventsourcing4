@@ -12,7 +12,7 @@ axon:
   eventhandling:
     processors:
       order:
-        mode: subscribing
+        mode: tracking
 
 server:
   port: 8081

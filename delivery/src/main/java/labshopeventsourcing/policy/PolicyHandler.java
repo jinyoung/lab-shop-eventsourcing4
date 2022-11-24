@@ -2,7 +2,9 @@ package labshopeventsourcing.policy;
 
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.eventhandling.ReplayStatus;
 import org.axonframework.queryhandling.QueryHandler;
+import org.axonframework.eventhandling.AllowReplay;
 import org.axonframework.eventhandling.DisallowReplay;
 
 import org.springframework.stereotype.Service;
@@ -27,12 +29,15 @@ public class PolicyHandler{
     @Autowired
     CommandGateway commandGateway;
 
-    @EventHandler
-    @DisallowReplay
-    public void wheneverOrderPlaced_AddToDeliveryList(OrderPlacedEvent orderPlaced){
+    @EventHandler  //@StreamListener
+    //@DisallowReplay  //if not, --from-beginning
+    @AllowReplay(false)
+    public void wheneverOrderPlaced_AddToDeliveryList(OrderPlacedEvent orderPlaced, ReplayStatus status){
         System.out.println(orderPlaced.toString());
 
         AddToDeliveryListCommand command = new AddToDeliveryListCommand();
+        command.setId(System.currentTimeMillis());
+        command.setOrderId(orderPlaced.getId());
         commandGateway.send(command);
     }
     @EventHandler

@@ -15,7 +15,6 @@ public class UpdateStatusCommand {
     private String productId;
     private Integer qty;
     private String customerId;
-    private BigDecimal amount;
     private String status;
     private String address;
 
