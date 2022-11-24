@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+
+---
+
+spring:
+  profiles: default
+
+axon:
+  eventhandling:
+    processors:
+      order:
+        mode: subscribing
+
+server:
+  port: 8081
+---
+
+spring:
+  profiles: docker
+
