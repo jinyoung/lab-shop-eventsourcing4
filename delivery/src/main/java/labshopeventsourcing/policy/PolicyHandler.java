@@ -31,7 +31,7 @@ public class PolicyHandler{
 
     @EventHandler  //@StreamListener
     //@DisallowReplay  //if not, --from-beginning
-    @AllowReplay(false)
+    //@AllowReplay(false)
     public void wheneverOrderPlaced_AddToDeliveryList(OrderPlacedEvent orderPlaced, ReplayStatus status){
         System.out.println(orderPlaced.toString());
 

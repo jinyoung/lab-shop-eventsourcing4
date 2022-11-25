@@ -23,12 +23,12 @@ spring:
     password: rootpassword
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-axon:
-  servers: localhost
-  eventhandling:
-    processors:
-      delivery:
-        mode: subscribing
+# axon:
+#   servers: localhost
+#   eventhandling:
+#     processors:
+#       delivery:
+#         mode: subscribing
 
 
 
