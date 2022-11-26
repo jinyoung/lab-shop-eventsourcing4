@@ -7,6 +7,7 @@ import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventhandling.ReplayStatus;
 import org.axonframework.queryhandling.QueryHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,9 +22,12 @@ public class OrderStatusQueryHandler {
 
     private final Map<Long, OrderStatus> data = new HashMap<>();
 
+    @Autowired
+    OrderStatusRepository repository;
+
     @QueryHandler
     public List<OrderStatus> handle(OrderStatusQuery query) {
-        return new ArrayList<>(data.values());
+        return repository.findAll(); //new ArrayList<>(data.values());
     }
 
     @EventHandler
@@ -38,7 +42,8 @@ public class OrderStatusQueryHandler {
         //orderStatus.setAmount(Long.valueOf(orderPlaced.getAmount()));
         //orderStatus.setQty(orderPlaced.getQty());
 
-        data.put(orderStatus.getId(), orderStatus);
+        //data.put(orderStatus.getId(), orderStatus);
+        repository.save(orderStatus);
     }
 
 

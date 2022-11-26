@@ -30,8 +30,8 @@ public class DeliveryApplication {
     //             .build();
     // }
 
-    @Autowired
-    public void configure(EventProcessingConfigurer config) {
-        config.usingSubscribingEventProcessors();
-    }
+    // @Autowired
+    // public void configure(EventProcessingConfigurer config) {
+    //     config.usingSubscribingEventProcessors();
+    // }
 }
